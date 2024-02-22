@@ -1,8 +1,14 @@
 package com.comsystem.homework.robot;
 
 
+import com.comsystem.homework.model.RobotAction;
 import com.comsystem.homework.model.RobotPlan;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
 public class RobotOperations {
 
     /**
@@ -15,8 +21,26 @@ public class RobotOperations {
      * @see RobotPlan
      */
     public RobotPlan excavateStonesForDays(int days) {
-        // TODO
-        return null;
+        if (days <= 0) {
+            return new RobotPlan(days,0,new ArrayList<>());
+        } else if (days == 1) {
+            return new RobotPlan(days,1, List.of(RobotAction.DIG));
+        }
+
+        List<RobotAction> robotActions = new ArrayList<>();
+        int totalStonesExcavated = 0;
+        int totalRobots = 1;
+        for (int i = 1; i <= days ; i++) {
+            if (i == days) {
+                totalStonesExcavated += totalRobots;
+                robotActions.add(RobotAction.DIG);
+            } else {
+                totalRobots *= 2;
+                robotActions.add(RobotAction.CLONE);
+            }
+
+        }
+        return new RobotPlan(days,totalStonesExcavated,robotActions);
     }
 
     /**
