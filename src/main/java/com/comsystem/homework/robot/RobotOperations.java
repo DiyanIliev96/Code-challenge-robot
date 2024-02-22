@@ -54,8 +54,22 @@ public class RobotOperations {
      * @see RobotPlan
      */
     public RobotPlan daysRequiredToCollectStones(int numberOfStones) {
-        // TODO
-        return null;
+        List<RobotAction> robotActions = new ArrayList<>();
+        int requiredDays = 0;
+        int totalRobots = 1;
+
+        if (numberOfStones <= 0) {
+            return new RobotPlan(0,0,robotActions);
+        }
+        while (totalRobots < numberOfStones) {
+            robotActions.add(RobotAction.CLONE);
+            totalRobots *= 2;
+            requiredDays++;
+        }
+
+        requiredDays++;
+        robotActions.add(RobotAction.DIG);
+        return new RobotPlan(requiredDays,numberOfStones,robotActions);
     }
 
 }
