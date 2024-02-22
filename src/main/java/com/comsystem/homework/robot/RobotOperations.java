@@ -21,15 +21,17 @@ public class RobotOperations {
      * @see RobotPlan
      */
     public RobotPlan excavateStonesForDays(int days) {
-        if (days <= 0) {
-            return new RobotPlan(days,0,new ArrayList<>());
-        } else if (days == 1) {
-            return new RobotPlan(days,1, List.of(RobotAction.DIG));
-        }
-
         List<RobotAction> robotActions = new ArrayList<>();
         int totalStonesExcavated = 0;
         int totalRobots = 1;
+
+        if (days <= 0) {
+            return new RobotPlan(days,0,robotActions);
+        } else if (days == 1) {
+            robotActions.add(RobotAction.DIG);
+            return new RobotPlan(days,1, robotActions);
+        }
+
         for (int i = 1; i <= days ; i++) {
             if (i == days) {
                 totalStonesExcavated += totalRobots;
