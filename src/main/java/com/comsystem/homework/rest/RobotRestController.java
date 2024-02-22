@@ -36,8 +36,10 @@ public final class RobotRestController {
      */
     @PostMapping("/approximation")
     public ResponseEntity<RobotPlan> approximateDays(@RequestParam Integer numberOfStones) {
-        // TODO
-        throw new ErrorResponseException(HttpStatus.I_AM_A_TEAPOT);
+        if (numberOfStones == null) {
+            throw new ErrorResponseException(HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(robotOperations.daysRequiredToCollectStones(numberOfStones));
     }
 
 }
